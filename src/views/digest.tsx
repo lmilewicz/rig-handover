@@ -4,6 +4,10 @@ const dash = (v: string | null): string => (v === null || v === '' ? '—' : v);
 
 const isWarn = (r: DigestRow): boolean => r.retries >= 3 || r.lastStatus === 'fail';
 
+// Why a row is marked, in words: a slow reader may not see the colour.
+const flag = (r: DigestRow): string =>
+  [r.lastStatus === 'fail' ? 'failed' : '', r.retries >= 3 ? 'retries ≥ 3' : ''].filter(Boolean).join(' · ') || '—';
+
 export function DigestPage({ digest }: { digest: NightDigest }) {
   const { night, rows, badLines } = digest;
   return (
@@ -23,12 +27,13 @@ export function DigestPage({ digest }: { digest: NightDigest }) {
               <th>last error</th>
               <th>first</th>
               <th>last</th>
+              <th>flag</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((r) => (
               <tr class={isWarn(r) ? 'warn' : undefined}>
-                <td>{isWarn(r) ? '! ' : ''}{r.job}</td>
+                <td>{r.job}</td>
                 <td>{dash(r.owner)}</td>
                 <td>{r.runs}</td>
                 <td>{r.retries}</td>
@@ -36,6 +41,7 @@ export function DigestPage({ digest }: { digest: NightDigest }) {
                 <td>{dash(r.lastError)}</td>
                 <td>{r.firstAt}</td>
                 <td>{r.lastAt}</td>
+                <td>{flag(r)}</td>
               </tr>
             ))}
           </tbody>
