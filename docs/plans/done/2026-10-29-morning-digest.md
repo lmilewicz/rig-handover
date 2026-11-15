@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-16
 ---
 
 # Morning digest
@@ -77,3 +78,20 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Digest types: DigestRow + readNight signature | — | claude-code · opus-5.5 · low | 2026-11-16 |
+| 2 | Run log reader: readNight | #1 | claude-code · opus-5.5 · low | 2026-11-16 |
+| 3 | Digest page: GET /digest/:night | #1 | claude-code · sonnet-5.5 · low | 2026-11-16 |
+| 4 | Digest JSON: GET /api/digest/:night | #1 | claude-code · haiku-5.5 · default | 2026-11-16 |
+| 5 | Status board: link each night to its digest with counts | #1 | claude-code · sonnet-5.5 · low | 2026-11-16 |
+| 6 | Route tests for the digest page and JSON | #1 | claude-code · haiku-5.5 · default | 2026-11-16 |
+| 7 | Preview for review | #3 | claude-code · opus-5.5 · default | 2026-11-16 |
+| 8 | Clean up the preview and move the plan to done | #7 | claude-code · opus-5.5 · default | 2026-11-16 |
+
+#3's warn marker moved into its own column at merge, so the page's job names match the JSON (ADR 0001).
+#7 was closed when the link was sent, before the review; reopened, and closed once the reviewer had seen it.
+The preview at https://rig-digest-co7l.surge.sh now shows "no marker set".
